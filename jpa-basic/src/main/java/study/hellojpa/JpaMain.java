@@ -18,9 +18,15 @@ public class JpaMain {
 
         // 실제 코드가 들어가는 곳
         try {
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setName("HelloJPA");
+            // 비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
+            // 영속 (아직 db에 저장되지 않음, 쿼리 안날라감)
+            em.persist(member);
+
+            //커밋 시점에 db에 쿼리 날라감
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
